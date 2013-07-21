@@ -10,6 +10,10 @@ public class QuickSortTest {
 		
 		sortArray.sort();
 		
+		long countComp= sortArray.getCountComp();
+		
 		System.out.println("Sorted:" + sortArray.toString() + "\n");
+		
+		System.out.println("No of Comparisions:" + countComp + "\n");
 	}
 }

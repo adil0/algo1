@@ -10,6 +10,7 @@ public class QuickSort {
 
 	int array[];
 	private static Random generator = new Random();
+	private long countComp=0;
 	
 	public QuickSort() throws NumberFormatException, IOException{
 	readFile("/home/adil/Downloads/IntegerArray.txt");	
@@ -64,6 +65,7 @@ public class QuickSort {
 					array[i]=array[j];
 					array[j]=temp;
 					i++;
+					countComp++;
 				}
 			}
 			
@@ -84,7 +86,7 @@ public class QuickSort {
 	
 	
 	public int choosePivot(int n){
-		int pivot=generator.nextInt(n);
+		int pivot=(n-1);
 		return pivot;
 	}
 	
@@ -109,5 +111,8 @@ public class QuickSort {
      {
        return subarray( 0, array.length - 1 );
      } // end method toString
-
+     
+     public long getCountComp(){
+    	 return countComp;
+     }
 }
