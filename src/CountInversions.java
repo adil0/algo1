@@ -7,11 +7,7 @@ import java.util.List;
 
 public class CountInversions {
 	
-<<<<<<< HEAD
 	long inversionCount=0;
-=======
-	int inversionCount=0;
->>>>>>> d7e1fe71e5a35fc7f32579ea5638c29adca84dce
 	int array[];
 	
 	// constructor
@@ -54,17 +50,14 @@ public class CountInversions {
 				int middle2 = middle1 + 1;
 				
 				// print the split array
-<<<<<<< HEAD
 //				System.out.println("Split:"+ subarray(low, high));
 //				System.out.println("	"+ subarray(low, middle1));
 //				System.out.println("	"+ subarray(middle2, high));
 //				System.out.println();
-=======
 				System.out.println("Split:"+ subarray(low, high));
 				System.out.println("	"+ subarray(low, middle1));
 				System.out.println("	"+ subarray(middle2, high));
 				System.out.println();
->>>>>>> d7e1fe71e5a35fc7f32579ea5638c29adca84dce
 				
 				sortAndCountInversionsArray(low, middle1);
 				sortAndCountInversionsArray(middle2, high);
@@ -81,13 +74,11 @@ public class CountInversions {
 			int[] combArray= new int[array.length];
 			
 			// output two subarrays before merging
-<<<<<<< HEAD
 //			System.out.println( "merge:   " + subarray( left, middle1 ) );
 //			System.out.println( "         " + subarray( middle2, right ) );
-=======
 			System.out.println( "merge:   " + subarray( left, middle1 ) );
 			System.out.println( "         " + subarray( middle2, right ) );
->>>>>>> d7e1fe71e5a35fc7f32579ea5638c29adca84dce
+
 			
 			while(leftIndex <= middle1 && rightIndex <= right){
 				if(array[leftIndex] <= array[rightIndex]){
@@ -115,13 +106,13 @@ public class CountInversions {
 			}
 			
 			// print the merged array
-<<<<<<< HEAD
+
 //			System.out.println("	"+ subarray(left, right));
 //			System.out.println();
-=======
+
 			System.out.println("	"+ subarray(left, right));
 			System.out.println();
->>>>>>> d7e1fe71e5a35fc7f32579ea5638c29adca84dce
+
 		}// end method merge
 		
 	    // method to output certain values in array
@@ -146,11 +137,9 @@ public class CountInversions {
 	       return subarray( 0, array.length - 1 );
 	     } // end method toString
 	     
-<<<<<<< HEAD
+
+
 	     public long getInversionCount(){
-=======
-	     public int getInversionCount(){
->>>>>>> d7e1fe71e5a35fc7f32579ea5638c29adca84dce
 	    	 return inversionCount;
 	     }
 	}// end Class

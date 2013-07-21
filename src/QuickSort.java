@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class QuickSort {
@@ -5,14 +11,35 @@ public class QuickSort {
 	int array[];
 	private static Random generator = new Random();
 	
-	public QuickSort(int size){
-		array = new int[size];
-		
-		for (int i=0;i<array.length;i++){
-			array[i]= 10 + generator.nextInt(90) ;
-		}
+	public QuickSort() throws NumberFormatException, IOException{
+	readFile("/home/adil/Downloads/IntegerArray.txt");	
 	}// end constructor
 
+	public void readFile(String fileName) throws NumberFormatException, IOException{
+		FileInputStream in = new FileInputStream(fileName);
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		List<Integer> intArray = new ArrayList<Integer>(); 
+		
+		String line = null;
+		while (true)
+		{
+			line = br.readLine();
+			if (line == null)
+			{
+				break;
+			}
+			intArray.add(Integer.parseInt(line.trim()));
+		}			
+		
+		array= new int[intArray.size()];
+		for (int j = 0; j < array.length; j++)
+		{
+			array[j] = intArray.get(j);
+		}			
+		System.out.println("ArrayLength=" + intArray.size());
+		in.close();	
+	}
+	
 	public void sort(){
 		sortArray(0,array.length-1);
 	}

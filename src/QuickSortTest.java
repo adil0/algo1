@@ -1,8 +1,10 @@
+import java.io.IOException;
+
 
 public class QuickSortTest {
 
-	public static void main(String[] args){
-		QuickSort sortArray = new QuickSort(20);
+	public static void main(String[] args) throws NumberFormatException, IOException{
+		QuickSort sortArray = new QuickSort();
 		
 		System.out.println("Unsorted:" + sortArray.toString() + "\n");
 		
