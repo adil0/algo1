@@ -13,7 +13,7 @@ public class QuickSort {
 	private long countComp=0;
 	
 	public QuickSort() throws NumberFormatException, IOException{
-	readFile("/home/adil/Downloads/IntegerArray.txt");	
+	readFile("/home/adil/Downloads/QuickSort.txt");	
 	}// end constructor
 
 	public void readFile(String fileName) throws NumberFormatException, IOException{
@@ -64,8 +64,7 @@ public class QuickSort {
 					temp=array[i];
 					array[i]=array[j];
 					array[j]=temp;
-					i++;
-					countComp++;
+					i++;					
 				}
 			}
 			
@@ -77,6 +76,7 @@ public class QuickSort {
 			array[low]= temp;
 //			System.out.println("After moving pivot in correct pos:" + subarray(low, high)+"\n");
 			
+			countComp = countComp + (high - low);
 			if(i-2>=0){
 				sortArray(low, (i-2));
 			}
