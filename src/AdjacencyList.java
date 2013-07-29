@@ -10,32 +10,44 @@ import java.util.Random;
 
 
 public class AdjacencyList {
-	 int n=200;
+	 int n;
 	 int a,b;
 	 int k=0;
 	 List<Integer>[] adj;
 	 Random generator = new Random();
-	 int vertexCount=n;
+	 int vertexCount;
 	 int minCutEdgeCount;
 	 
-	public AdjacencyList(String fileName)throws IOException, NumberFormatException{
-
+	public AdjacencyList(String fileName, int sz)throws IOException, NumberFormatException{
+		n=sz;
+		vertexCount=sz;
 		 adj = (List<Integer>[])new List[n];
 		 for (int i = 0; i < n; i++)
 		 adj[i] = new ArrayList<Integer>();
 		 readFile(fileName);
-		 		 
+		 
+		 for(int p=0;p<n;p++){
+			 System.out.println(outEdges(p));
+//			 System.out.println(inEdges(p+1));
+		 }
+		 
 		 while(vertexCount > 2){
 			 a = generator.nextInt(n);
-			 b = generator.nextInt(n);			 
-			 contractEdge(a, b);
+			 b = generator.nextInt(n);
+			 
+			 if(a!=b){
+//				 System.out.printf("%d %d \n",a,b);	 
+				 contractEdge(a, b);
+			 }
+			 
 //			 System.out.println(vertexCount);
 		 }//end while
 		 
 		 while(k<n){
 			 if(adj[k]!=null){
+				 System.out.println(k+1);
 				 System.out.println(adj[k]);
-				 System.out.println(adj[k].size());
+				 System.out.printf("size=%d \n",adj[k].size());
 			 }
 			 k++;
 		 }		 
@@ -94,8 +106,8 @@ public class AdjacencyList {
 	 
 	 public List<Integer> inEdges(int i) {
 	   	List<Integer> edges = new ArrayList<Integer>();
-        for (int j = 0; j < n; j++)
-        	if (adj[j].contains(i))    edges.add(j);
+        for (int j = 0; j < n; j++)       	
+        	if (adj[j] != null && adj[j].contains(i))    edges.add(j+1);
 	        return edges;
 	    }// end inEdge
 	 
@@ -107,11 +119,15 @@ public class AdjacencyList {
 				 if(!(adj[i].contains(k))){
 					 addEdge(i, k);
 				 }//end if
-				 if(adj[i].contains(j+1) || adj[i].contains(i+1)){
-					 removeEdge(i, j+1);
-					 removeEdge(i, i+1);
-				 }
-			 }//end while 
+			 }//end while
+			 if(adj[i].contains(Integer.valueOf(j+1))){
+//				 System.out.printf("j= %d \n",j+1);
+				 removeEdge(i, j+1);
+			 }
+			 if(adj[i].contains(Integer.valueOf(i+1))){
+//				 System.out.printf("i= %d \n",i+1);
+				 removeEdge(i, i+1);
+			 }
 			 adj[j]=null;
 			 vertexCount--;	
 		 }// end outer if		 
