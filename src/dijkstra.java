@@ -3,10 +3,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-
+import java.util.Collections;
 
 public class dijkstra {
 	 int n,s;
@@ -17,7 +18,7 @@ public class dijkstra {
 	 List<Integer>[] wt;
 	 List<Integer> vst;
 	 List<Integer> nonVst;
-	 int[] A;
+	 int[] A,L,B;
 	 
 	 
 	public dijkstra(String fileName, int sz) throws IOException,NumberFormatException{
@@ -25,12 +26,15 @@ public class dijkstra {
 		adj = (List<Integer>[])new List[n];
 		wt = (List<Integer>[])new List[n];
 		A=new int[n];
+		L=new int[n];
 		vst = new ArrayList<Integer>();
 		nonVst = new ArrayList<Integer>();
 		for (int i = 0; i < n; i++){
 		adj[i] = new ArrayList<Integer>();
 		wt[i] = new ArrayList<Integer>();
-		A[i]=1000000;
+		A[i]=0;
+		L[i]=0;
+		B[i]=0;
 		nonVst.add(i);
 		}
 		nonVst.remove(0);
@@ -89,21 +93,22 @@ public class dijkstra {
 	        return adj[i];
 	 }// end outEdge
 	 
-	 public void computeDist(int i){
-		 if(vst.contains(i)){
-			 System.out.println("Shortest Dist. already calculated");
-			 return;
-		 }
-		 
-		 
+	 public void computeDist(){
+		 		 
 		 Iterator<Integer> it = vst.iterator();
 		 while(it.hasNext()){
 			 int k=it.next();
 			 
-			 if(adj[k].contains(k)){
-				 
+			 for(int i=0;i<adj[k].size();i++){
+				 if(vst.contains(i)){
+					System.out.println("Shortest distance already calculated"); 
+				 }else{
+					 B[i]=A[i]+wt[k].get(i); 
+				 }				 
 			 }
-		 }
+			 
+		 }// end while
+		 
 	 }// end compute dist
 	
 } // end class
