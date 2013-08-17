@@ -18,7 +18,7 @@ public class dijkstra {
 	 List<Integer>[] wt;
 	 List<Integer> vst;
 	 List<Integer> nonVst;
-	 int[] A,L,B;
+	 int[] A,B;
 	 
 	 
 	public dijkstra(String fileName, int sz) throws IOException,NumberFormatException{
@@ -26,14 +26,12 @@ public class dijkstra {
 		adj = (List<Integer>[])new List[n];
 		wt = (List<Integer>[])new List[n];
 		A=new int[n];
-		L=new int[n];
 		vst = new ArrayList<Integer>();
 		nonVst = new ArrayList<Integer>();
 		for (int i = 0; i < n; i++){
 		adj[i] = new ArrayList<Integer>();
 		wt[i] = new ArrayList<Integer>();
 		A[i]=0;
-		L[i]=0;
 		B[i]=0;
 		nonVst.add(i);
 		}
@@ -94,7 +92,14 @@ public class dijkstra {
 	 }// end outEdge
 	 
 	 public void computeDist(){
-		 		 
+		 int minVal=100000;
+		 int minListIndex=0;
+		 int minIndex=0;
+		 
+		 for(int i=1;i<n;i++){
+			 B[i]=0;
+		 }
+		 
 		 Iterator<Integer> it = vst.iterator();
 		 while(it.hasNext()){
 			 int k=it.next();
@@ -103,12 +108,28 @@ public class dijkstra {
 				 if(vst.contains(i)){
 					System.out.println("Shortest distance already calculated"); 
 				 }else{
-					 B[i]=A[i]+wt[k].get(i); 
-				 }				 
-			 }
-			 
+					 if(A[k] + wt[k].get(i) >= B[i] && B[i]==0){
+						 B[i] = A[k] + wt[k].get(i);
+						 if(B[i] <= minVal){
+							 minVal=B[i];
+							 minListIndex=k;
+							 minIndex=i;
+						 }
+					 }else if(B[i]!=0 && A[k] + wt[k].get(i) < B[i]){
+						 B[i] = A[k] + wt[k].get(i);
+						 if(B[i] <= minVal){
+							 minVal=B[i];
+							 minListIndex=k;
+							 minIndex=i;
+						 }
+					 }
+				 }//end else				 
+			 }//end for			 
 		 }// end while
-		 
-	 }// end compute dist
+		 // calculate the minimum and add that to the visited vertex
+		 	vst.add(minListIndex);
+		 	nonVst.remove(minListIndex);
+		 	A[minListIndex]=B[minIndex];
+	 }// end computeDist
 	
 } // end class
