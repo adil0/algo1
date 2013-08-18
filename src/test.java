@@ -13,7 +13,7 @@ public class test {
 	
 	
 	public static double getTrendInvInd(boolean buy){
-		
+	
 	double trendRevInd=0;
 	int absMaxTrendSignalValue = 50;
     double retMovingAveragesBps = 100; 
@@ -22,7 +22,7 @@ public class test {
     
     if (Math.abs(retMovingAveragesBps) < 1)
     {
-        trendRevInd = 0;
+    	trendRevInd = 0;
     }
     else if (retMovingAveragesBps > 0)
     {

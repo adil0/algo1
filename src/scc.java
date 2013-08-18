@@ -113,6 +113,7 @@ public class scc {
 //				System.out.printf("%d %d \n",i,j);
 				addEdge(i, j);			
 			}
+			in.close();
 	}
 	 
 	public void addEdge(int i, int j) {
