@@ -39,17 +39,22 @@ public class dijkstra {
 		
 		A[1]=0;		
 		vst.add(1);
-		nonVst.remove(1);
+		nonVst.remove(Integer.valueOf(1));
 		
 		readFile(fileName);
 		System.out.println("File Reading Done");
-//		System.out.println(adj[1]);
-//		System.out.println(wt[1]);
+//		System.out.println(adj[114]);
+//		System.out.println(wt[114]);
 		
 		// compute the shortest distances 
-		for(int i=2;i<4;i++){
+		for(int i=2;i<n;i++){
 			computeDist();
 		}
+
+		for(int i=2;i<n;i++){
+			System.out.printf("A[%d]=%d \n",i,A[i]);
+		}
+
 		
 	}// end constructor
 
@@ -100,7 +105,6 @@ public class dijkstra {
 	 
 	 public void computeDist(){
 		 int minVal=100000;
-		 int minListIndex=0;
 		 int minIndex=0;
 		 
 		 for(int i=1;i<n;i++){
@@ -110,23 +114,20 @@ public class dijkstra {
 		 Iterator<Integer> it = vst.iterator();
 		 while(it.hasNext()){
 			 int k=it.next();
-			 
 			 for(int i=0;i<adj[k].size();i++){
 				 if(vst.contains(adj[k].get(i))){
-					System.out.println("Shortest distance already calculated"); 
+//					System.out.println("Shortest distance already calculated"); 
 				 }else{
 					 if( B[adj[k].get(i)]==0 && A[k] + wt[k].get(i) >= B[adj[k].get(i)]){
 						 B[adj[k].get(i)] = A[k] + wt[k].get(i);
 						 if(B[adj[k].get(i)] <= minVal){
 							 minVal=B[adj[k].get(i)];
-							 minListIndex=k;
 							 minIndex=adj[k].get(i);
 						 }
 					 }else if(B[adj[k].get(i)] !=0 && A[k] + wt[k].get(i) < B[adj[k].get(i)]){
 						 B[adj[k].get(i)] = A[k] + wt[k].get(i);
 						 if(B[adj[k].get(i)] <= minVal){
 							 minVal=B[adj[k].get(i)];
-							 minListIndex=k;
 							 minIndex=adj[k].get(i);
 						 }
 					 }
@@ -134,10 +135,10 @@ public class dijkstra {
 			 }//end for			 
 		 }// end while
 		 // calculate the minimum and add that to the visited vertex
-		 	vst.add(minListIndex);
-		 	nonVst.remove(minListIndex);
+		 	vst.add(minIndex);
+		 	nonVst.remove(Integer.valueOf(minIndex));
 		 	A[minIndex]=B[minIndex];
-		 	System.out.printf("Shortest diastance to vertex %d=%d",minIndex,A[minIndex]);
+//		 	System.out.printf("Shortest distance to vertex %d=%d \n",minIndex,A[minIndex]);
 	 }// end computeDist
 	
 } // end class
