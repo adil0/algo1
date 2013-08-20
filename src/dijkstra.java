@@ -26,24 +26,31 @@ public class dijkstra {
 		adj = (List<Integer>[])new List[n];
 		wt = (List<Integer>[])new List[n];
 		A=new int[n];
+		B=new int[n];
 		vst = new ArrayList<Integer>();
 		nonVst = new ArrayList<Integer>();
-		for (int i = 0; i < n; i++){
+		for (int i = 1;i < n; i++){
 		adj[i] = new ArrayList<Integer>();
 		wt[i] = new ArrayList<Integer>();
 		A[i]=0;
 		B[i]=0;
 		nonVst.add(i);
 		}
-		nonVst.remove(0);
+		
 		A[1]=0;		
 		vst.add(1);
 		nonVst.remove(1);
 		
 		readFile(fileName);
 		System.out.println("File Reading Done");
-		System.out.println(adj[1]);
-		System.out.println(wt[1]);
+//		System.out.println(adj[1]);
+//		System.out.println(wt[1]);
+		
+		// compute the shortest distances 
+		for(int i=2;i<4;i++){
+			computeDist();
+		}
+		
 	}// end constructor
 
 	
@@ -105,22 +112,22 @@ public class dijkstra {
 			 int k=it.next();
 			 
 			 for(int i=0;i<adj[k].size();i++){
-				 if(vst.contains(i)){
+				 if(vst.contains(adj[k].get(i))){
 					System.out.println("Shortest distance already calculated"); 
 				 }else{
-					 if(A[k] + wt[k].get(i) >= B[i] && B[i]==0){
-						 B[i] = A[k] + wt[k].get(i);
-						 if(B[i] <= minVal){
-							 minVal=B[i];
+					 if( B[adj[k].get(i)]==0 && A[k] + wt[k].get(i) >= B[adj[k].get(i)]){
+						 B[adj[k].get(i)] = A[k] + wt[k].get(i);
+						 if(B[adj[k].get(i)] <= minVal){
+							 minVal=B[adj[k].get(i)];
 							 minListIndex=k;
-							 minIndex=i;
+							 minIndex=adj[k].get(i);
 						 }
-					 }else if(B[i]!=0 && A[k] + wt[k].get(i) < B[i]){
-						 B[i] = A[k] + wt[k].get(i);
-						 if(B[i] <= minVal){
-							 minVal=B[i];
+					 }else if(B[adj[k].get(i)] !=0 && A[k] + wt[k].get(i) < B[adj[k].get(i)]){
+						 B[adj[k].get(i)] = A[k] + wt[k].get(i);
+						 if(B[adj[k].get(i)] <= minVal){
+							 minVal=B[adj[k].get(i)];
 							 minListIndex=k;
-							 minIndex=i;
+							 minIndex=adj[k].get(i);
 						 }
 					 }
 				 }//end else				 
@@ -129,7 +136,8 @@ public class dijkstra {
 		 // calculate the minimum and add that to the visited vertex
 		 	vst.add(minListIndex);
 		 	nonVst.remove(minListIndex);
-		 	A[minListIndex]=B[minIndex];
+		 	A[minIndex]=B[minIndex];
+		 	System.out.printf("Shortest diastance to vertex %d=%d",minIndex,A[minIndex]);
 	 }// end computeDist
 	
 } // end class
