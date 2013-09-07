@@ -1,3 +1,4 @@
+import java.util.Random;
 
 
 public class test {
@@ -6,8 +7,11 @@ public class test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		boolean buy=false;
-		System.out.println(getTrendInvInd(buy));
+		
+		for(int i=0;i<100;i++){
+		Random generator = new Random(i);
+		System.out.println(generator.nextInt(100));
+		}
 	}
 	
 	

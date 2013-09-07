@@ -12,7 +12,7 @@ import java.util.Random;
 public class AdjacencyList {
 	 int n;
 	 int a,b;
-	 int k=0;
+	 int k=1;
 	 List<Integer>[] adj;
 	 Random generator = new Random();
 	 int vertexCount;
@@ -20,20 +20,20 @@ public class AdjacencyList {
 	 
 	public AdjacencyList(String fileName, int sz)throws IOException, NumberFormatException{
 		n=sz;
-		vertexCount=sz;
+		vertexCount=(n-1);
 		 adj = (List<Integer>[])new List[n];
-		 for (int i = 0; i < n; i++)
+		 for (int i = 1; i < n; i++)
 		 adj[i] = new ArrayList<Integer>();
 		 readFile(fileName);
 		 
-		 for(int p=0;p<n;p++){
-			 System.out.println(outEdges(p));
-//			 System.out.println(inEdges(p+1));
+		 for(int p=1;p<n;p++){
+//			 System.out.println(outEdges(p));
+//			 System.out.println(inEdges(p));
 		 }
 		 
 		 while(vertexCount > 2){
-			 a = generator.nextInt(n);
-			 b = generator.nextInt(n);
+			 a = 1 + generator.nextInt(n-1);
+			 b = 1 + generator.nextInt(n-1);
 			 
 			 if(a!=b){
 //				 System.out.printf("%d %d \n",a,b);	 
@@ -45,14 +45,14 @@ public class AdjacencyList {
 		 
 		 while(k<n){
 			 if(adj[k]!=null){
-				 System.out.println(k+1);
+				 System.out.println(k);
 				 System.out.println(adj[k]);
 				 System.out.printf("size=%d \n",adj[k].size());
 			 }
 			 k++;
 		 }		 
 		 
-//		 removeSelfLoops(k);
+
 //		 minCutEdgeCount= countEgde(k);
 //		 System.out.println("Edges in min cut:" + minCutEdgeCount);
 	}// end constructor
@@ -60,9 +60,8 @@ public class AdjacencyList {
 	public void readFile(String fileName) throws IOException, NumberFormatException{
 		FileInputStream in = new FileInputStream(fileName);
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
-		List<Integer> intArray = new ArrayList<Integer>(); 
 			
-			int i=0;
+			int i=1;
 			int k;
 			String line = null;
 			while (true)
@@ -80,20 +79,19 @@ public class AdjacencyList {
 				}
 				i++;
 			}
+			in.close();
 	}
 	 
 	public void addEdge(int i, int j) {
-	        adj[i].add(j);
+	        adj[i].add(Integer.valueOf(j));
 	    }
     
 	public void removeEdge(int i, int j) {
-        Iterator<Integer> it = adj[i].iterator();
-        while (it.hasNext()) {
-            if (it.next() == j) {
-                it.remove();
-                return;
-            }
-        }    
+		if(adj[i] != null){
+			if(adj[i].contains(Integer.valueOf(j))){
+				adj[i].remove(Integer.valueOf(j));
+			}
+		}
     }// end removeEdge
 	
 	 public boolean hasEdge(int i, int j) {
@@ -106,46 +104,52 @@ public class AdjacencyList {
 	 
 	 public List<Integer> inEdges(int i) {
 	   	List<Integer> edges = new ArrayList<Integer>();
-        for (int j = 0; j < n; j++)       	
-        	if (adj[j] != null && adj[j].contains(i))    edges.add(j+1);
+        for (int j = 1; j < n; j++)       	
+        	if (adj[j] != null && adj[j].contains(i))    edges.add(j);
 	        return edges;
-	    }// end inEdge
+	    }// end inEdgeedges
 	 
 	 public void contractEdge(int i, int j){
 		 if(adj[i] != null && adj[j]!=null){
+			 if(adj[i].contains(Integer.valueOf(j))){
 			 ListIterator<Integer> it= adj[j].listIterator();
 			 while(it.hasNext()){
 				 int k=it.next();
-				 if(!(adj[i].contains(k))){
+				 if(!adj[i].contains(Integer.valueOf(k))){
 					 addEdge(i, k);
 				 }//end if
 			 }//end while
-			 if(adj[i].contains(Integer.valueOf(j+1))){
-//				 System.out.printf("j= %d \n",j+1);
-				 removeEdge(i, j+1);
+			 
+			 if(adj[i].contains(Integer.valueOf(j))){
+//				 System.out.printf("j= %d \n",j);
+				 removeEdge(i, j);
 			 }
-			 if(adj[i].contains(Integer.valueOf(i+1))){
+			 if(adj[i].contains(Integer.valueOf(i))){
 //				 System.out.printf("i= %d \n",i+1);
-				 removeEdge(i, i+1);
+				 removeEdge(i, i);
 			 }
 			 adj[j]=null;
+			 
+			 // replace the removed vertex from the graph and add single in its place	
+			 for(int p=1;p<n;p++){
+				if(adj[p] != null ){
+					if(adj[p].contains(Integer.valueOf(j))){
+						adj[p].remove(Integer.valueOf(j));
+//						System.out.println("After removing to "+ p);
+//						System.out.println(adj[p]);
+						adj[p].add(Integer.valueOf(i));
+//						System.out.println("After adding to "+ p);
+//						System.out.println(adj[p]);
+					}
+				}
+			 }
+			 
+//			 System.out.println(adj[i]);
 			 vertexCount--;	
-		 }// end outer if		 
+		 }//end inner if 
+		 }// end outer if
 	 } // end contract edge
 	 
-	 public void removeSelfLoops(int i)
-	 {
-		 if(adj[i] != null){
-			 ListIterator<Integer> itr= adj[i].listIterator();
-			 while(itr.hasNext()){
-				 int k=itr.next();
-				 if(k==(i+1)){
-					 removeEdge(i, k);
-					 return;
-				 }//end if 
-			 }//end while
-		 }// end outer if
-	 }// end self loops
 	 
 	 public int countEgde(int i)
 	 {
