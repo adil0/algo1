@@ -8,7 +8,8 @@ import java.util.List;
 
 
 public class prim {
-	 int m,n,mc=0;
+	 int m,n;
+	 long mc=0;
 	 List<Integer>[] adj;
 	 List<Integer>[] wt;
 	 List<Integer> vst;
@@ -18,8 +19,11 @@ public class prim {
 		readFile(fileName);
 //		System.out.println("n="+n);
 //		System.out.println("m="+m);
-//		System.out.println("adj[397]="+adj[397]);
-//		System.out.println("wt[397]="+wt[397]);
+		System.out.println("adj[1]="+adj[1]);
+		System.out.println("wt[1]="+wt[1]);
+		
+//		System.out.println("adj[2]="+adj[2]);
+//		System.out.println("wt[2]="+wt[2]);
 		
 		vst.add(Integer.valueOf(1));
 		// compute the shortest distances 
@@ -67,6 +71,8 @@ public class prim {
 					weigh=Integer.parseInt(strLine[2]);
 					addEdge(src, dest);
 					addWeight(src,weigh);
+					addEdge(dest, src);
+					addWeight(dest,weigh);
 				}
 				lc++;
 			}
