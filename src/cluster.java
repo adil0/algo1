@@ -7,20 +7,27 @@ import java.util.List;
 
 
 public class cluster {
-	 int n;
+	 int n,clustCount;
 	 long mc=0;
 	 List<Integer>[] adj;
 	 List<Integer>[] wt;
 	 List<Integer> vst;
 	 List<Integer> nonVst;
-
+	 int reqClust=4;
+	 
 	public cluster(String fileName) throws NumberFormatException,IOException{
 		readFile(fileName);
 //		System.out.println("n="+n);
-
+		clustCount=n;
+		
 		System.out.println("adj[1]="+adj[1]);
 		System.out.println("wt[1]="+wt[1]);
 				
+		while(clustCount > reqClust){
+			mergeClusters();
+			clustCount--;
+		}
+		
 	}
 
 	public void readFile(String fileName) throws IOException, NumberFormatException{
@@ -73,6 +80,10 @@ public class cluster {
         wt[i].add(j);
     }
 
+	public void mergeClusters(){
+		
+	}
+	
 	
 	public static void main(String[] args) throws NumberFormatException,IOException {
 		cluster c1 = new cluster("/home/adil/Downloads/clustering1.txt");
