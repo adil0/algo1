@@ -8,14 +8,20 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.math3.util.ArithmeticUtils;
+import org.apache.commons.math3.util.MathUtils;
+
 
 public class clusterBig {
 	 int n,clustCount,minSep;
+	 List <String>[] group;
 	 ArrayList<String> adj=new ArrayList<String>();
 	 int maxSpacing,codeLen;
 
 	public clusterBig(String fileName) throws IOException,NumberFormatException{
 		readFile(fileName);
+		System.out.println("n="+n);
+		System.out.println("code Length="+codeLen);
 		System.out.println(adj.get(0));
 	}
 	
@@ -39,6 +45,11 @@ public class clusterBig {
 					String[] strLine = (line.split(" "));
 					n=Integer.parseInt(strLine[0]);
 					codeLen=Integer.parseInt(strLine[1]);
+					// initialize the group adjacnecy list
+					group = (List<String>[])new List[(n+1)];
+					for(int i=0;i<(n+1);i++){
+						group[i]=new ArrayList<String>();
+					}
 				}else{
 					adj.add(line.trim());
 				}
