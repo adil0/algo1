@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class cluster {
-	 int n,clustCount;
+	 int n,clustCount,minSep;
 	 long mc=0;
 	 List<Integer>[] adj;
 	 List<Integer>[] wt;
