@@ -3,24 +3,31 @@ import java.util.PriorityQueue;
 
 
 public class test2 {
-
+	
+	static int codeLen=8;
+	
 	public static void main(String[] args) {
-		int array[]= {1,1,3,4,5};
-		String s;
+		String a="0 1 0 0 1 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
+		String b="0 0 1 0 1 1 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0";
 		
-		HashMap<Integer, String> map= new HashMap<Integer, String>();
+		int dist=findDist(a,b);
 		
-		System.out.println(map.get(1));
-		s = map.get(1);
-		if(s==null){s="";}
-		s = s + " ab"+"-"+"cd";
-		map.put(1, s);
-		System.out.println(map.get(1));
-		s=map.get(1);
-		if(s==null){s="";}
-		s = s + " ef"+"-"+"gh";
-		map.put(1, s);
-		System.out.println(map.get(1));
+		System.out.println(dist);
 	}
-
+	
+	public static int findDist(String s1, String s2){
+		int dist=0;		
+		String[] sArray1,sArray2;		
+		
+		sArray1=s1.split(" ");
+		sArray2=s2.split(" ");
+		for(int i=0;i<codeLen;i++){
+			if(Integer.parseInt(sArray1[i]) != Integer.parseInt(sArray2[i])){
+			dist++;
+			}
+		}
+		return dist;
+	}
+		
 }
+
