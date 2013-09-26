@@ -160,7 +160,7 @@ public class clusterBig {
 										leaderCount.put(source, leaderCount.get(source)+1);
 									}	
 								}// end for b
-								System.out.printf("Merged cluster %s with %s \n",leaderDest,leaderSource);
+//								System.out.printf("Merged cluster %s with %s \n",leaderDest,leaderSource);
 //								System.out.println(leader.get(leaderSource));
 //								System.out.println(leader.get(leaderDest));
 								clustCount--;
@@ -172,7 +172,7 @@ public class clusterBig {
 										leaderCount.put(dest, leaderCount.get(dest)+1);
 									}	
 								}// end for b
-								System.out.printf("Merged cluster %s with %s \n",leaderDest,leaderSource);
+//								System.out.printf("Merged cluster %s with %s \n",leaderDest,leaderSource);
 								clustCount--;	
 							}// end else if
 						}
