@@ -10,20 +10,15 @@ public class ksBig {
 	int n,W;
 	ArrayList<Integer> v=new ArrayList<Integer>();
 	ArrayList<Integer> w = new ArrayList<Integer>();
-	 List<Integer>[] A;
+	 int[][] A;
 	
 	public ksBig(String fileName) throws NumberFormatException,IOException{
 		readFile(fileName);
 		
-		A = (List<Integer>[])new List[(2)];
-		for(int i=0;i<(2);i++){
-			A[i]= new ArrayList<Integer>();
-		}
-		
+		A= new int[2][(W+1)];
 		for(int i=0;i<(W+1);i++){
-			A[0].add(i, 0);
+			A[0][i]=0;
 		}
-
 		
 		System.out.println("n="+n);
 		System.out.println("W="+W);
@@ -32,7 +27,7 @@ public class ksBig {
 		
 		
 		knap();
-		System.out.println(A[0].get(W));
+		System.out.println(A[0][W]);
 	}
 
 	public void readFile(String fileName) throws IOException, NumberFormatException{
@@ -66,18 +61,20 @@ public class ksBig {
 		for(int i=1;i<(n+1);i++){
 			for(int x=0;x<(W+1);x++){
 				if(x-w.get(i-1) >= 0){
-				A[1].add(x,Math.max(A[0].get(x), A[0].get(x-w.get(i-1)) + v.get(i-1)));
+					A[1][x]=Math.max(A[0][x], A[0][x-w.get(i-1)] + v.get(i-1));
 				}else{
-					A[1].add(x,A[0].get(x));
+					A[1][x]= A[0][x];
 				}
 			}
-			A[0].addAll(A[1]);
-			A[1].clear();
+			for(int k=0;k<(W+1);k++){
+			A[0][k]= A[1][k];
+			A[1][k]=0;
+			}
 		}
 	}
 
 	public static void main(String[] args) throws IOException,NumberFormatException{
-		ksBig k1 = new ksBig("/home/adil/Downloads/knapsack1.txt");
+		ksBig k1 = new ksBig("/home/adil/Downloads/knapsack_big.txt");
 
 	}
 
