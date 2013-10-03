@@ -82,6 +82,7 @@ public class clusterBig {
 				}
 				lc++;
 			}// end while
+			in.close();
 	}// end readLine
 			
 	public void groupClusters(){

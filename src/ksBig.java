@@ -55,6 +55,7 @@ public class ksBig {
 				}
 				lc++;
 			}// end while
+			in.close();
 	}// end readLine
 
 	public void knap(){

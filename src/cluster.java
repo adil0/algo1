@@ -89,6 +89,7 @@ public class cluster {
 				}
 				lc++;
 			}// end while
+			in.close();
 	}// end readLine
 	 
 	public void addEdge(int i, int j) {
